@@ -3,14 +3,7 @@
   connection: local
   vars_files: /vars/host.yaml
   gather_facts: false
-  roles: 
-    - syncrou.manageiq-automate
   tasks:
-  - debug:
-      var: cidr
-    register: cidr
-  - debug:
-      var: hostname
   - name: Get Instance ID 
     uri: 
       method: GET
