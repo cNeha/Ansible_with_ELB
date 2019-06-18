@@ -1,0 +1,20 @@
+--- 
+- hosts: localhost
+  connection: local
+  vars_files: /vars/host.yaml
+  gather_facts: false
+  roles: 
+    - syncrou.manageiq-automate
+  tasks:
+  - debug:
+      var: cidr
+    register: cidr
+  - debug:
+      var: hostname
+  - name: Get Instance ID 
+    uri: 
+      method: GET
+      status_code: 200
+      url: "{{ manageiq.api_url }}/api/provision_requests/{{ miq_provision_request_id }}/request_tasks/{{ miq_provision_id }}"
+      validate_certs: false
+       
