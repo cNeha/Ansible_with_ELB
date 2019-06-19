@@ -10,4 +10,5 @@
       status_code: 200
       url: "{{ manageiq.api_url }}/api/provision_requests/{{ miq_provision_request_id }}/request_tasks/{{ miq_provision_id }}"
       validate_certs: false
-       
+    register: result
+  - debug: msg="Result is:{{ result }}"
