@@ -12,4 +12,4 @@
       headers: 
         X-Auth-Token: "{{ manageiq.api_token }}"
     register: result
-  - debug: msg="Result is:{{ result.stdout }}"
+  - debug: msg="{{ result.results | json_query('[].stdout_lines[]') }}"
