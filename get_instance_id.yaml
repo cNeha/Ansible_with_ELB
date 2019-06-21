@@ -3,7 +3,7 @@
   connection: local
   gather_facts: false
   tasks:
-  - name: Get Instance ID 
+  - name: Get Request Details
     uri: 
       method: GET
       status_code: 200
@@ -12,4 +12,4 @@
       headers: 
         X-Auth-Token: "{{ manageiq.api_token }}"
     register: result
-  - debug: msg="Result is:{{ result }}"
+  - debug: msg="Result is:{{ result.vm_name }}"
