@@ -12,4 +12,4 @@
       headers: 
         X-Auth-Token: "{{ manageiq.api_token }}"
     register: result
-  - debug: msg=["{{ result.stdout_lines | list | join("\", \"") }}" }}"]
+  - debug: msg="{{ result.stdout_lines | to_yaml }}"
