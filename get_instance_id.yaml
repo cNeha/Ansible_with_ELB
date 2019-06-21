@@ -12,4 +12,4 @@
       headers: 
         X-Auth-Token: "{{ manageiq.api_token }}"
     register: result
-  - debug: msg="Result is:{{ result.vm_name }}"
+  - debug: msg="Result is:{{ result.options.vm_name }}"
