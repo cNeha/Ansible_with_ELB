@@ -11,4 +11,5 @@
       validate_certs: false
       headers: 
         X-Auth-Token: "{{ manageiq.api_token }}"
-    register: result.results
+    register: result.results['options']['vm_name']
+    
