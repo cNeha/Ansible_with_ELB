@@ -11,6 +11,4 @@
       validate_certs: false
       headers: 
         X-Auth-Token: "{{ manageiq.api_token }}"
-    register: result
-  - debug: msg="{{ item.key }}: {{ item.value }}"
-    with_dict: result
+    register: result.results
