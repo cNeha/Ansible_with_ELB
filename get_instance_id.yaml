@@ -3,14 +3,12 @@
   connection: local
   gather_facts: false
   tasks:
-  - name: Get Request Details
-    uri: 
-      method: GET
-      status_code: 200
-      url: "{{ manageiq.api_url }}/api/provision_requests/{{ miq_provision_request_id }}/request_tasks/{{ miq_provision_id }}"
-      validate_certs: false
-      headers: 
-        X-Auth-Token: "{{ manageiq.api_token }}"
-    register: result.results['options']['vm_name']
-  - debug: 
-      msg: "{{ result.results['options']['vm_name'] }}"
+  - debug:
+      var: instance_id
+  - name: Add vm to load balancer
+    local_action: ec2_elb
+    args:
+      instance_id: "{{ instance_id }}"
+      ec2_elbs: "{{ load_balancer }}"
+      state: present
+      region: "{{ region }}"
