@@ -3,25 +3,25 @@
   connection: local
   gather_facts: False
   tasks:
-    - debug:
+  - debug:
       var: elb_name
-    - debug:
+  - debug:
       var: region
-    - debug:
+  - debug:
       var: availability_zone
-    - debug:
+  - debug:
       var: elb_port
-    - name: setup a simple load balancer
-      ec2_elb_lb:
-        name: "{{ elb_name }}"
-        state: present
-        region: "{{ region }}"
-        zones:
-          - "{{ availability_zone }}"
-        listeners:
-          - protocol: http
-            load_balancer_port: "{{ elb_port }}"
-            instance_port: "{{ elb_port }}"
-      register: aws-elb
-    - debug:
-        var: aws-elb
+  - name: setup a simple load balancer
+    ec2_elb_lb:
+      name: "{{ elb_name }}"
+      state: present
+      region: "{{ region }}"
+      zones:
+        - "{{ availability_zone }}"
+      listeners:
+        - protocol: http
+          load_balancer_port: "{{ elb_port }}"
+          instance_port: "{{ elb_port }}"
+    register: aws-elb
+  - debug:
+      var: aws-elb
