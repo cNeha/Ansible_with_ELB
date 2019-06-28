@@ -15,3 +15,5 @@
             load_balancer_port: "{{ elb_port }}"
             instance_port: "{{ elb_port }}"
       register: aws-elb
+    - debug:
+        var: aws-elb
