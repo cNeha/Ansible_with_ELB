@@ -7,9 +7,9 @@
       ec2_elb_lb:
         name: "{{ elb_name }}"
         state: present
-        region: us-west-2
+        region: us-east-1
         zones:
-          - us-west-2a
+          - us-east-1a
         listeners:
           - protocol: http
             load_balancer_port: "{{ elb_port }}"
