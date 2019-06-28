@@ -2,13 +2,16 @@
 - hosts: localhost
   connection: local
   gather_facts: false
+  import_playbook: create_elb.yaml
   tasks:
   - debug:
       var: instance_id
+  - debug:
+      msg: "{{ aws_elb.elb.name }}"
   - name: Add vm to load balancer
     local_action: ec2_elb
     args:
       instance_id: "{{ instance_id }}"
-      ec2_elbs: "{{ load_balancer }}"
+      ec2_elbs: "{{ aws_elb.elb.name }}"
       state: present
       region: "{{ region }}"
