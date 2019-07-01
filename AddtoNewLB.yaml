@@ -20,6 +20,14 @@
       region: "{{ region }}"
       subnets:
         - "{{ subnet_id }}"
+      health_check:
+        - ping_protocol: http
+          ping_port: 80
+          ping_path: "/index.html"
+          response_timeout: 5 
+          interval: 30 
+          unhealthy_threshold: 2
+          healthy_threshold: 10
       listeners:
         - protocol: http
           load_balancer_port: "{{ elb_port }}"
