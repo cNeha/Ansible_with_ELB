@@ -18,6 +18,8 @@
       region: "{{ region }}"
       zones:
         - "{{ availability_zone }}"
+      subnets:
+        - "{{ subnet_id }}"
       listeners:
         - protocol: http
           load_balancer_port: "{{ elb_port }}"
