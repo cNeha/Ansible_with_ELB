@@ -16,8 +16,6 @@
       name: "{{ elb_name }}"
       state: present
       region: "{{ region }}"
-      zones:
-        - "{{ availability_zone }}"
       subnets:
         - "{{ subnet_id }}"
       listeners:
