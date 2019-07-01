@@ -25,3 +25,7 @@
     register: aws_elb
   - debug: 
       var: aws_elb
+  - set_fact:
+      lb_name={{ aws_elb.elb.name }}
+  - debug: 
+      var: lb_name
