@@ -1,0 +1,36 @@
+- name: Get ELB
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+  - debug:
+      var: existing_lb_name
+  - debug:
+      var: region
+  - set_fact:
+      lb_name={{ existing_lb_name }}
+  - debug: 
+      var: lb_name
+      
+- name: Add to the Load Balancer
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+  - debug:
+      var: instance_id
+  - debug: 
+      var: hostvars['localhost']['ansible_facts']
+  - name: set the facts 
+    set_fact:
+      lb_name: "{{ hostvars['localhost']['ansible_facts']['lb_name'] }}"
+  - name: Add vm to load balancer
+    local_action: ec2_elb
+    args:
+      instance_id: "{{ instance_id }}"
+      ec2_elbs: "{{ lb_name }}"
+      state: present
+      region: "{{ region }}"
+    register: lb_added
+  - debug: 
+      var: lb_added
