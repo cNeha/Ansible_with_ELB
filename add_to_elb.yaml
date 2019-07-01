@@ -1,8 +1,9 @@
---- 
-- import_playbook: create_elb.yaml
-  hosts: localhost
+---
+- hosts: localhost
   connection: local
-  gather_facts: false
+- import_playbook: create_elb.yaml
+- gather_facts: false
+  hosts: localhost
   tasks:
   - debug:
       var: instance_id
