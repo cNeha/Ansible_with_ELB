@@ -1,15 +1,13 @@
 ---
 - hosts: localhost
   connection: local
-  gather_facts: True
+  gather_facts: no
   tasks:
   - debug:
       var: instance_id
   - name: set the facts
-    set_fact:
-      lb_name: "{{ hostvars['localhost']['lb_name'] }}"
-  - debug:
-      var: lb_name
+    debug:
+      msg: "{{ hostvars['localhost'].keys() }}"
   - name: Add vm to load balancer
     local_action: ec2_elb
     args:
