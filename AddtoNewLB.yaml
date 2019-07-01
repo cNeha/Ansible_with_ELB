@@ -1,4 +1,4 @@
-- name: create ELB
+- name: create ELB and add an instance to ELB
   hosts: localhost
   connection: local
   gather_facts: False
@@ -27,21 +27,9 @@
       var: aws_elb
   - set_fact:
       lb_name={{ aws_elb.elb.name }}
+      cacheable=yes
   - debug: 
       var: lb_name
-      
-- name: Add to the Load Balancer
-  hosts: localhost
-  connection: local
-  gather_facts: no
-  tasks:
-  - debug:
-      var: instance_id
-  - debug: 
-      var: hostvars['localhost']['ansible_facts']
-  - name: set the facts 
-    set_fact:
-      lb_name: "{{ hostvars['localhost']['ansible_facts']['lb_name'] }}"
   - name: Add vm to load balancer
     local_action: ec2_elb
     args:
