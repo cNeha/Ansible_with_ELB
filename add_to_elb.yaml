@@ -17,3 +17,6 @@
       ec2_elbs: "{{ lb_name }}"
       state: present
       region: "{{ region }}"
+    register: lb_added
+  - debug: 
+      var: lb_added
