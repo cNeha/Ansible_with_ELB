@@ -21,7 +21,7 @@
       subnets:
         - "{{ subnet_id }}"
       health_check:
-        - ping_protocol: http
+          ping_protocol: http
           ping_port: 80
           ping_path: "/index.html"
           response_timeout: 5 
