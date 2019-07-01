@@ -5,9 +5,11 @@
   tasks:
   - debug:
       var: instance_id
-  - name: set the facts
-    debug:
-      msg: "{{ hostvars['localhost'].keys() }}"
+  - debug: 
+      var: hostvars['localhost']['ansible_facts']['lb_name']
+  - name: set the facts 
+    set_fact:
+      lb_name: "{{ hostvars['localhost']['ansible_facts']['lb_name']}}"
   - name: Add vm to load balancer
     local_action: ec2_elb
     args:
