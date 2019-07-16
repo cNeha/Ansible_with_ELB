@@ -32,5 +32,6 @@
       state: present
       region: "{{ region }}"
     register: lb_added
+    ignore_errors: yes
   - debug: 
       var: lb_added
