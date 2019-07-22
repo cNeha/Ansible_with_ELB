@@ -16,11 +16,11 @@
   - debug:
       var: elb_port
    - name: Get the list of root object attribute names (get_object_attribute_names)
-      manageiq_automate:
-        workspace: "{{ workspace }}"
-        get_object_attribute_names:
-          object: "root"
-      register: root_object_attribute_names
+     manageiq_automate:
+       workspace: "{{ workspace }}"
+       get_object_attribute_names:
+         object: "root"
+     register: root_object_attribute_names
    - debug: msg="Result:{{ root_object_attribute_names.value }}"
     
   - name: setup a simple load balancer
