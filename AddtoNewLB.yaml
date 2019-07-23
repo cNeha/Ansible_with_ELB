@@ -5,21 +5,26 @@
   roles:
     - syncrou.manageiq-automate
   tasks:
+  - name: "Get Attributes"
+    manageiq_automate:
+      workspace: "{{ workspace }}"
+      get_state_var:
+        attribute: "{{ item }}"
+    loop:
+      - elb_name
+      - elb_port
+      - instance_id
+      - region
+      - subnet_id
+      - availability_zone
+    register: results
   - debug:
-      var: elb_name
-  - debug:
-      var: region
-  - debug:
-      var: availability_zone
-  - debug:
-      var: subnet_id
-  - debug:
-      var: elb_port
+      msg: results
   - name: Get the list of root object attribute names (get_object_attribute_names)
     manageiq_automate:
       workspace: "{{ workspace }}"
       get_object_attribute_names:
-        object: "parent"
+        object: "root"
     register: root_object_attribute_names
   - debug: msg="Result:{{ root_object_attribute_names.value }}"
     
