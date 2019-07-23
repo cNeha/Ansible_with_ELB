@@ -10,17 +10,39 @@
       workspace: "{{ workspace }}"
       get_attribute:
         object: "root"
-        attribute: "{{ item }}"
-    loop:
-      - elb_name
-      - elb_port
-      - instance_id
-      - region
-      - subnet_id
-      - availability_zone
-    register: results
-  - debug:
-      var: results
+        attribute: "elb_name"
+    register: elb_name
+    manageiq_automate:
+      workspace: "{{ workspace }}"
+      get_attribute:
+        object: "root"
+        attribute: "elb_port"
+    register: elb_port 
+    manageiq_automate:
+      workspace: "{{ workspace }}"
+      get_attribute:
+        object: "root"
+        attribute: "instance_id"
+    register: instance_id
+    manageiq_automate:
+      workspace: "{{ workspace }}"
+      get_attribute:
+        object: "root"
+        attribute: "region"
+    register: region
+    manageiq_automate:
+      workspace: "{{ workspace }}"
+      get_attribute:
+        object: "root"
+        attribute: "subnet_id"
+    register: subnet_id
+    manageiq_automate:
+      workspace: "{{ workspace }}"
+      get_attribute:
+        object: "root"
+        attribute: "availability_zone"
+    register: availability_zone
+    
   - name: Get the list of root object attribute names (get_object_attribute_names)
     manageiq_automate:
       workspace: "{{ workspace }}"
@@ -31,11 +53,11 @@
     
   - name: setup a simple load balancer
     ec2_elb_lb:
-      name: "{{ elb_name }}"
+      name: "{{ elb_name.value }}"
       state: present
-      region: "{{ region }}"
+      region: "{{ region.value }}"
       subnets:
-        - "{{ subnet_id }}"
+        - "{{ subnet_id.value }}"
       health_check:
           ping_protocol: http
           ping_port: 80
@@ -46,8 +68,8 @@
           healthy_threshold: 2
       listeners:
         - protocol: http
-          load_balancer_port: "{{ elb_port }}"
-          instance_port: "{{ elb_port }}"
+          load_balancer_port: "{{ elb_port.value }}"
+          instance_port: "{{ elb_port.value }}"
     register: aws_elb
   - debug: 
       var: aws_elb
@@ -59,10 +81,10 @@
   - name: Add vm to load balancer
     local_action: ec2_elb
     args:
-      instance_id: "{{ instance_id }}"
-      ec2_elbs: "{{ lb_name }}"
+      instance_id: "{{ instance_id.value }}"
+      ec2_elbs: "{{ elb_name.value }}"
       state: present
-      region: "{{ region }}"
+      region: "{{ region.value }}"
     register: lb_added
     ignore_errors: yes
   - debug: 
