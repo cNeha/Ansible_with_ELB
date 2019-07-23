@@ -19,7 +19,7 @@
     manageiq_automate:
       workspace: "{{ workspace }}"
       get_object_attribute_names:
-        object: "root"
+        object: "parent"
     register: root_object_attribute_names
   - debug: msg="Result:{{ root_object_attribute_names.value }}"
     
