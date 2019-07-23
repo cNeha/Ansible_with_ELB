@@ -8,7 +8,8 @@
   - name: "Get Attributes"
     manageiq_automate:
       workspace: "{{ workspace }}"
-      get_state_var:
+      get_attribute:
+        object: "root"
         attribute: "{{ item }}"
     loop:
       - elb_name
