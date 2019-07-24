@@ -69,11 +69,11 @@
     
   - name: setup a simple load balancer
     ec2_elb_lb:
-      name: "{{ elb_name.value }}"
+      name: "{{ elb_name['value'] }}"
       state: present
-      region: "{{ region.value }}"
+      region: "{{ region['value'] }}"
       subnets:
-        - "{{ subnet_id.value }}"
+        - "{{ subnet_id['value'] }}"
       health_check:
           ping_protocol: http
           ping_port: 80
@@ -84,8 +84,8 @@
           healthy_threshold: 2
       listeners:
         - protocol: http
-          load_balancer_port: "{{ elb_port.value }}"
-          instance_port: "{{ elb_port.value }}"
+          load_balancer_port: "{{ elb_port['value'] }}"
+          instance_port: "{{ elb_port['value'] }}"
     register: aws_elb
   - debug: 
       var: aws_elb
@@ -97,10 +97,10 @@
   - name: Add vm to load balancer
     local_action: ec2_elb
     args:
-      instance_id: "{{ instance_id.value }}"
-      ec2_elbs: "{{ elb_name.value }}"
+      instance_id: "{{ instance_id['value'] }}"
+      ec2_elbs: "{{ elb_name['value'] }}"
       state: present
-      region: "{{ region.value }}"
+      region: "{{ region['value'] }}"
     register: lb_added
     ignore_errors: yes
   - debug: 
