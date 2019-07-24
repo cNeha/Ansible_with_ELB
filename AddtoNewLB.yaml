@@ -12,8 +12,7 @@
         object: "root"
         attribute: "elb_name"
     register: elb_name
-  - debug:
-      var: elb_name
+  - debug: msg="ELB Name:{{ elb_name.value }}"
   - name: "Get ELB PORT"
     manageiq_automate:
       workspace: "{{ workspace }}"
