@@ -13,7 +13,7 @@
         attribute: "elb_name"
     register: elb_name
   - debug:
-      var: "{{ elb_name }}"
+      var: elb_name
   - name: "Get ELB PORT"
     manageiq_automate:
       workspace: "{{ workspace }}"
@@ -22,7 +22,7 @@
         attribute: "elb_port"
     register: elb_port 
   - debug:
-      var: "{{ elb_port }}"
+      var: elb_port
   - name: "GET Instance ID"
     manageiq_automate:
       workspace: "{{ workspace }}"
@@ -31,7 +31,7 @@
         attribute: "instance_id"
     register: instance_id
   - debug:
-      var: "{{ instance_id }}"
+      var: instance_id
   - name: "GET Region"
     manageiq_automate:
       workspace: "{{ workspace }}"
@@ -40,7 +40,7 @@
         attribute: "region"
     register: region
   - debug: 
-      var: "{{ region }}"
+      var: region
   - name: "Get Subnet ID"
     manageiq_automate:
       workspace: "{{ workspace }}"
@@ -49,7 +49,7 @@
         attribute: "subnet_id"
     register: subnet_id
   - debug:
-      var: "{{ subnet_id }}"
+      var: subnet_id
   - name: "Get AZ"
     manageiq_automate:
       workspace: "{{ workspace }}"
@@ -58,7 +58,7 @@
         attribute: "availability_zone"
     register: availability_zone
   - debug: 
-      var: "{{ availability_zone }}"
+      var: availability_zone
   - name: Get the list of root object attribute names (get_object_attribute_names)
     manageiq_automate:
       workspace: "{{ workspace }}"
