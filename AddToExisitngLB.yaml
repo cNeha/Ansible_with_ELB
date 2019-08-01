@@ -2,28 +2,41 @@
   hosts: localhost
   connection: local
   gather_facts: False
+  roles:
+    - syncrou.manageiq-automate
   tasks:
+  - name: "Get Attributes"
+    manageiq_automate:
+      workspace: "{{ workspace }}"
+      get_attribute:
+        object: "root"
+        attribute: "elb_name"
+    register: elb_name
   - debug:
-      var: existing_lb_name
+      var: elb_name
+  - name: "Get Region"
+    manageiq_automate:
+      workspace: "{{ workspace }}"
+      get_attribute:
+        object: "root"
+        attribute: "region"
+    register: region
   - debug:
       var: region
-  - set_fact:
-      lb_name={{ existing_lb_name }}
-  - debug: 
-      var: lb_name
-      
+  - name: "Get Instance ID"
+    manageiq_automate:
+      workspace: "{{ workspace }}"
+      get_attribute:
+        object: "root"
+        attribute: "instance_id"
+    register: instance_id
+  - debug:
+      var: instance_id
 - name: Add to the Load Balancer
   hosts: localhost
   connection: local
   gather_facts: no
   tasks:
-  - debug:
-      var: instance_id
-  - debug: 
-      var: hostvars['localhost']['ansible_facts']
-  - name: set the facts 
-    set_fact:
-      lb_name: "{{ hostvars['localhost']['ansible_facts']['lb_name'] }}"
   - name: Add vm to load balancer
     local_action: ec2_elb
     args:
