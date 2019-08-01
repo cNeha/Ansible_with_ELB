@@ -13,7 +13,7 @@
         attribute: "elb_name"
     register: elb_name
   - debug:
-      var: elb_name
+      var: elb_name.value
   - name: "Get Region"
     manageiq_automate:
       workspace: "{{ workspace }}"
@@ -22,7 +22,7 @@
         attribute: "region"
     register: region
   - debug:
-      var: region
+      var: region.value
   - name: "Get Instance ID"
     manageiq_automate:
       workspace: "{{ workspace }}"
@@ -31,7 +31,7 @@
         attribute: "instance_id"
     register: instance_id
   - debug:
-      var: instance_id
+      var: instance_id.value
 - name: Add to the Load Balancer
   hosts: localhost
   connection: local
@@ -40,10 +40,10 @@
   - name: Add vm to load balancer
     local_action: ec2_elb
     args:
-      instance_id: "{{ instance_id }}"
-      ec2_elbs: "{{ lb_name }}"
+      instance_id: "{{ instance_id.value }}"
+      ec2_elbs: "{{ lb_name.value }}"
       state: present
-      region: "{{ region }}"
+      region: "{{ region.value }}"
     register: lb_added
     ignore_errors: yes
   - debug: 
